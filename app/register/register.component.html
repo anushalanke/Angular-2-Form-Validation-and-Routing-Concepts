@@ -1,0 +1,41 @@
+<form name="loginForm" #name="ngForm" (ngSubmit)="submitForm(name.value)" >
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="register.email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" name="password" [(ngModel)]="register.password">
+  </div>
+  <div class="form-group">
+    <label for="gender">Gender:</label>
+    <input type="radio" name="gender" value="M" [(ngModel)]="register.gender">Male
+     <input type="radio" name="gender" value="F" [(ngModel)]="register.gender">Female
+  </div>
+
+  <div class="form-group">
+    <label for="country">Country:</label>
+    <select name="country" [(ngModel)]="register.country">
+          <option *ngFor="let country of Countries" [ngValue]="country.code">{{country.name}}</option>
+    </select>
+  </div>
+  
+  <div class="checkbox">
+    <label><input type="checkbox" name="checkbox" [(ngModel)]="register.checkbox"> Remember me</label>
+  </div>
+  <button type="submit" [disabled]="!register.checkbox" class="btn btn-default">Submit</button>
+</form>
+
+<form (ngSubmit)="submitForm(loginForm.value)" novalidate [formGroup]="loginForm">
+   <div class="form-group" [ngClass]="{'has-error':!loginForm.controls['firstName'].valid &&!loginForm.controls['firstName'].pristine}">
+    <label for="fName">FirstName:</label>
+    <input type="text" class="form-control" id="fName" name="fName" [formControl]="loginForm.controls['firstName']">
+  </div>
+  <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+</form>
+
+
